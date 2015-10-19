@@ -5,6 +5,11 @@ categories:: GUI
 DESCRIPTION::
 A class to quickly build GUIs to test Synths. Handles creating and freeing synths.
 
+NOTE::
+Relies on SynthDef having a gate argument, and doneAction 2.
+It creates a new Synth instance each time the on/off button is cycled.
+doneAction 0 will not be freed, unless the window is closed.
+::
 
 CLASSMETHODS::
 
@@ -37,6 +42,14 @@ An array containing an array for each parameter. The inner array is of the form:
 
 EXAMPLES::
 
+code::
+(
+//The quickest example - controlling the default synth:
+QuickWin().addControls().show;
+)
+::
+
+This is probably the best way to set up a workflow for using other synths:
 code::
 (
 
