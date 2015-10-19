@@ -1,0 +1,57 @@
+TITLE:: QuickWin
+summary:: Quick GUI for testing Synths
+categories:: GUI
+
+DESCRIPTION::
+A class to quickly build GUIs to test Synths. Handles creating and freeing synths.
+
+
+CLASSMETHODS::
+
+METHOD:: new
+Creates a new QuickWin
+
+ARGUMENT:: title
+Sets the window title
+
+
+INSTANCEMETHODS::
+
+METHOD:: synth
+The synthdef name to create controls for
+
+METHOD:: show
+Displays the window. Should be called last.
+
+METHOD:: addControls
+Creates the GUI interface specific to the params specified (i.e. for the synth)
+
+ARGUMENT:: params
+An array of string literals. These are used as the synth arguments for controlling parameters.
+
+ARGUMENT:: labels
+An array of strings. These are used as display text to describe each control.
+
+ARGUMENT:: specs
+An array containing an array for each parameter. The inner array is of the form: [ minVal, maxVal, initialVal ]. Used to set the ranges for each control.
+
+EXAMPLES::
+
+code::
+(
+
+var myWin, params, labels, specs;
+
+myWin = QuickWin("Demo");
+
+myWin.synth = \default;
+
+params = [\freq, \amp, \pan];
+labels = ["Frequency", "Amplitude","Pan"];
+specs =  [ [220,880,440], [0,1,0.5], [-1,1,0] ];
+
+myWin.addControls(params,labels,specs);
+myWin.show;
+
+)
+::
