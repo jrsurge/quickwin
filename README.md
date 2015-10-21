@@ -30,7 +30,7 @@ How?
      qw.show;
     )
 
-It relies on the Synth having a gated envelope, and doneAction 2 (so it frees itself once the gate is set to 0) - it creates a new Synth instance for every on/off button cycle, so if it's doneAction 1 you'll run into issues.
+It relies on the Synth having a gated envelope, and doneAction 2 (so it frees itself once the gate is set to 0) - it creates a new Synth instance for every on/off button cycle, so if it's doneAction 0 you'll run into issues.
 
 Why?
 ----
