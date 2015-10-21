@@ -17,7 +17,8 @@ QuickWin{
 		prParams = List();
 
 		prWin.onClose_({
-			if(prSynth != nil,{prSynth.free; Server.local.sendMsg(\b_free,0)});
+			if(prSynth != nil,{prSynth.free});
+			Server.local.sendMsg(\b_free,0);
 		});
 
 	}
