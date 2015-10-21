@@ -42,12 +42,12 @@ QuickWin{
 			tmpLayout = VLayout();
 			tmpSpec = ControlSpec(specs[i][0],specs[i][1],default:specs[i][2]);
 
-			prParams.add(params[i]).add(specs[i][2]);
+			prParams.add(param).add(specs[i][2]);
 
 			tmpLayout.add(StaticText().string_(labels[i]).align_(\center));
 			tmpLayout.add(Knob().mode_(\vert).action_({ | v |
 				if(prSynth != nil,{
-					prSynth.set(params[i],tmpSpec.map(v.value));
+					prSynth.set(param,tmpSpec.map(v.value));
 				});
 				prParams[(i*2)+1] = tmpSpec.map(v.value);
 			}).value_(tmpSpec.unmap(specs[i][2])));
