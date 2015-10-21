@@ -7,7 +7,7 @@ QuickWin{
 	}
 
 	init{
-		prWin = Window(prWinTitle,);
+		prWin = Window(prWinTitle);
 		prLayout = GridLayout();
 		prLayout.spacing_(10);
 		prLayout.margins_(10);
