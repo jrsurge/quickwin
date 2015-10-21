@@ -22,7 +22,6 @@ QuickWin{
 
 	}
 
-// This could probably be improved - there's lots of variable hiding going on
 	addControls{ | params=#[\freq,\amp,\pan], labels=#["Frequency", "Amplitude", "Pan"], specs=#[ [220,880,440], [0,1,0.5], [-1,1,0] ] |
 
 		prLayout.add( Button()
@@ -39,6 +38,13 @@ QuickWin{
 				})
 			})
 		,0,0);
+
+		prLayout.add( DragSink()
+			.string_("Drop soundfile")
+			.action_({ | v |
+				Buffer.read(Server.local,v.value,bufnum:0);
+			}),0,1
+		);
 
 		params.do({ | param, i |
 			var tmpSpec, tmpSlider, tmpNumBox;
