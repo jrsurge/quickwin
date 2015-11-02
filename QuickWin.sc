@@ -1,6 +1,6 @@
 QuickWin{
 
-	var prWinTitle, prWin, prLayout, prParams, <>synth, prSynth;
+	var prWinTitle, prWin, prLayout, prParams, <>synth, prSynth, >bufferLoad;
 
 	*new{ | title="QuickWin" |
 		^super.newCopyArgs(title).init;
@@ -15,6 +15,10 @@ QuickWin{
 		synth = \default;
 		prSynth = nil;
 		prParams = List();
+
+		bufferLoad = { | v |
+			Buffer.read(Server.local,v.value,bufnum:0);
+		};
 
 		prWin.onClose_({
 			if(prSynth != nil,{prSynth.free});
@@ -43,7 +47,7 @@ QuickWin{
 		prLayout.add( DragSink()
 			.string_("Drop soundfile")
 			.action_({ | v |
-				Buffer.read(Server.local,v.value,bufnum:0);
+				bufferLoad.value(v.value);
 			}),0,1
 		);
 
@@ -80,6 +84,20 @@ QuickWin{
 			prLayout.add(tmpSlider,i+1,1);
 			prLayout.add(tmpNumBox,i+1,2);
 		});
+
+		prLayout.add(Button().states_([["Save params to file"]]).action_({
+			var file;
+			file = File.open(Platform.userHomeDir++"/Documents/SuperCollider/QuickWinSettings/"++synth++Date.getDate.stamp++".txt","w");
+			file.write("synth,"++synth++"\n");
+			file.write("bufferLoad,"++bufferLoad.asCompileString.replace("\n",""));
+			(prParams.size/2).do({| i |
+				file.write("\n");
+				file.write(prParams[i*2]);
+				file.write(",");
+				file.write(prParams[(i*2)+1].asString);
+			});
+			file.close;
+		}),prParams.size/2 + 1,2);
 	}
 
 	show{
